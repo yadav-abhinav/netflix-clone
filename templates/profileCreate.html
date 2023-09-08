@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Create Profile
+{% endblock title %}
+
+{% block content %}
+
+    {% include 'partials/navbar.html' %}
+
+<section class='bg-black bg-opacity-75 showcase border-gray-600 border-b-8 min-h-screen py-20 md:py-32 flex-col flex items-center bg-no-repeat'
+style="background-image: url('{% static 'background_netflix.jpg' %}');">
+        <div class="z-10 flex flex-wrap justify-center  w-10/12  md:w-6/12">
+            <form method='POST' class="bg-gray-900 bg-opacity-80 w-full md:w-6/12 p-5 rounded-lg">
+                {% csrf_token %}
+                <h1 class="text-4xl text-center text-gray-100 font-medium">
+                    Create A Profile
+                </h1>
+                <div class="my-4"> 
+                    <Label class='text-lg text-gray-200 font-medium mb-3'>
+                        Profile Name
+                    </Label>
+                    <input required class="p-2 bg-gray-500 rounded-sm text-gray-200 outline-none block w-full" type="text" name="name" id="id_name" placeholder="Profile name">
+                </div>
+                <div class="my-4"> 
+                    <Label class='text-lg text-gray-200 font-medium mb-3'>
+                        Maturity Level
+                    </Label>
+                    <select class="p-2 bg-gray-500 rounded-sm text-gray-200 outline-none block w-full"  name="age_limit" id="id_age_limit" >
+                        <option value="all">All</option>
+                        <option value="kids">Kids</option>
+                        
+                    </select>
+                </div>
+                <div class="flex justify-center items-center py-3">
+                    <button class="px-4 py-2 rounded-md outline-none bg-primary_red text-gray-100">Create Profile</button>
+                </div>
+            </form> 
+        </div>
+        
+    </section>
+{% endblock content %}

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    Details
+{% endblock title %}
+{% block others %}
+    <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
+{% endblock others %}
+{% block content %}
+{% include 'partials/navbar.html' %}
+
+<main class='bg-primary_black min-h-screen w-full'>
+    <section class="h-screen showcase relative bg-no-repeat pb-8 pl-6 flex items-end bg-cover" style="background-image: url('{{movie.flyer.url}}');">
+            <div class="z-10 my-5" style="margin-left: 7rem; margin-bottom: 1rem">
+                <h2 class="text-6xl font-semibold text-white my-4">
+                    {{movie.title}}
+                </h2>
+                <p class=" w-11/12 md:w-5/12 font-medium text-white my-4" style="color: #8f8f8f; margin-bottom: 2rem">
+                    {{movie.introduction}}
+                </p>
+                <div class="flex my-4">
+                    <a href="{% url 'core:play_movie' movie_id=movie.uuid %}">
+
+                        <button class="flex items-center text-gray-900 bg-white py-2 px-3 rounded-md">
+                            <ion-icon name="play" class="text-2xl"></ion-icon>
+                            <span class="ml-3 font-medium">
+                                Watch Trailer
+                            </span>
+                        </button>
+
+                    </a>
+                </div>
+            </div>
+        </section> 
+        <section class='bg-primary_black  min-h-screen flex justify-center py-10'>
+            <div class="p-8 w-10/12 relative" >
+                {% if movie.type == 'seasonal' %}
+                <div style='margin-top:2rem; margin-bottom:2rem;'>
+                
+                    <h2 class="text-gray-200 text-3xl font-medium">
+                        Episodes
+                    </h2>
+                    <div class="my-4 flex flex-row justify-start items-center w-full">
+                        {% for episode in movie.videos.all %}
+                            <div class="bg-blue-500 px-4 flex items-center flex-row rounded-md cursor-pointer" style="min-width: 12rem; height: 2.6rem ; margin-right: 1.25rem;">
+                                <a href="{% url 'core:play_movie' movie_id=movie.uuid %}?epi={{forloop.counter0}}">
+                                    <p class='text-lg'>
+                                        <b>Episode {{forloop.counter}} :</b> {{episode.title}}
+                                    </p>
+                                </a>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                {% endif %}
+                <h2 class="text-gray-200 text-3xl font-medium" style=" margin-top: 3rem; margin-bottom: 0.75rem;">
+                    Description
+                </h2>
+                <div class="flex justify-start  items-center min-w-full  movie_lis">
+                    <p class="text-gray-100 text-lg">
+                        {{movie.description}}
+                    </p>
+                </div>
+            </div>
+        </section>
+        
+    </main>
+{% endblock content %}
